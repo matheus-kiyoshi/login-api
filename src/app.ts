@@ -1,6 +1,7 @@
 import express, { Application } from 'express'
 import { errorMiddleware } from './middlewares/error.middlewares'
 import { UserRoutes } from './routes/user.routes'
+import { connect } from './infra/db'
 
 class App {
   public app: Application
@@ -10,6 +11,7 @@ class App {
     this.middlewaresInitialize()
     this.initializeRoutes()
     this.interceptionError()
+    connect()
   }
 
   private initializeRoutes() {
