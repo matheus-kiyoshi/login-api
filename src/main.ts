@@ -1,5 +1,5 @@
-import app from './app'
+import { App } from './app'
 
-app.listen(3333, () => {
-  console.log(`App listening on port 3333!`)
-})
+const app = new App()
+
+app.listen()
