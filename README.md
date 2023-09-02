@@ -1,7 +1,7 @@
 todo:
 
 server running X
-eslint config
+eslint config X 
 
  /////
 
