@@ -13,6 +13,6 @@ export function errorMiddleware(
 
   res.status(status).json({
     status,
-    message,
+    message
   })
 }

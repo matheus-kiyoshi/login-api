@@ -7,13 +7,13 @@ describe('Error Middleware test', () => {
     const httpException: HttpException = {
       name: 'HttpException',
       statusCode: 404,
-      message: 'Not Found',
+      message: 'Not Found'
     }
 
     const req: Partial<Request> = {}
     const res: Partial<Response> = {
       status: jest.fn().mockReturnThis(),
-      json: jest.fn(),
+      json: jest.fn()
     }
     const next: NextFunction = jest.fn()
 
@@ -22,20 +22,20 @@ describe('Error Middleware test', () => {
     expect(res.status).toHaveBeenCalledWith(404)
     expect(res.json).toHaveBeenCalledWith({
       status: 404,
-      message: 'Not Found',
+      message: 'Not Found'
     })
   })
   it('Should respond with the correct status and message HttpException', () => {
     const httpException: HttpException = {
       name: 'HttpException',
       statusCode: 500,
-      message: 'Internal Server Error',
+      message: 'Internal Server Error'
     }
 
     const req: Partial<Request> = {}
     const res: Partial<Response> = {
       status: jest.fn().mockReturnThis(),
-      json: jest.fn(),
+      json: jest.fn()
     }
     const next: NextFunction = jest.fn()
 
@@ -44,7 +44,7 @@ describe('Error Middleware test', () => {
     expect(res.status).toHaveBeenCalledWith(500)
     expect(res.json).toHaveBeenCalledWith({
       status: 500,
-      message: 'Internal Server Error',
+      message: 'Internal Server Error'
     })
   })
 })

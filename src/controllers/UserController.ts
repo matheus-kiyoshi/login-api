@@ -12,9 +12,21 @@ class UserController {
         firstName,
         lastName,
         email,
-        password,
+        password
       })
       return res.status(201).json({ message: 'User created' })
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async findByEmail(req: Request, res: Response, next: NextFunction) {
+    const { email } = req.params
+
+    try {
+      const user = await this.userUseCase.findByEmail(email)
+      console.log(user)
+      return res.status(200).json(user)
     } catch (error) {
       next(error)
     }
