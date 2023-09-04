@@ -2,6 +2,7 @@ import { Router } from 'express'
 import { UserController } from '../controllers/UserController'
 import { UserRepositoryMongoose } from '../repositories/UserRepositoryMongoose'
 import { UserUseCases } from '../useCases/UserUseCases'
+import checkToken from '../middlewares/checkToken.middleware'
 
 class UserRoutes {
   public router: Router
@@ -19,6 +20,15 @@ class UserRoutes {
     this.router.post(
       '/register',
       this.userController.create.bind(this.userController)
+    )
+    this.router.post(
+      '/login',
+      this.userController.login.bind(this.userController)
+    )
+    this.router.get(
+      '/:id',
+      checkToken,
+      this.userController.findById.bind(this.userController)
     )
     this.router.get(
       '/:email',

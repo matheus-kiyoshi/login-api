@@ -2,6 +2,14 @@ import mongoose from 'mongoose'
 import { UserRepository } from './UserRepository'
 import User from '../entities/User'
 
+type UserWithID = {
+  _id: string
+  firstName: string
+  lastName: string
+  email: string
+  password: string
+}
+
 const userSchema = new mongoose.Schema({
   _id: {
     type: String,
@@ -26,7 +34,13 @@ class UserRepositoryMongoose implements UserRepository {
     return userModel
   }
 
-  async findByEmail(email: string): Promise<User | undefined> {
+  async findById(id: string): Promise<UserWithID | undefined> {
+    const userModel = await UserModel.findById(id).select('-password').exec()
+
+    return userModel ? userModel.toObject() : undefined
+  }
+
+  async findByEmail(email: string): Promise<UserWithID | undefined> {
     const userModel = await UserModel.findOne({ email: email }).exec()
 
     return userModel ? userModel.toObject() : undefined

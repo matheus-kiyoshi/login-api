@@ -23,6 +23,15 @@ describe('user test', () => {
     expect(response.status).toBe(201)
     expect(response.body).toEqual({ message: 'User created' })
   })
+  it.only('/POST login user', async () => {
+    const response = await request(express).post('/users/login').send({
+      email: 'matheus@teste.com',
+      password: '123456'
+    })
+    if (response.error) {
+      console.log('ERRO: ', response.error)
+    }
+  })
   it('/POST check user exists', async () => {
     const response = await request(express).post('/users/register').send({
       firstName: 'Matheus',
