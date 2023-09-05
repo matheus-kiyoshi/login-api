@@ -2,6 +2,7 @@ import express, { Application } from 'express'
 import { errorMiddleware } from './middlewares/error.middlewares'
 import { UserRoutes } from './routes/user.routes'
 import { connect } from './infra/db'
+import cors from 'cors'
 
 class App {
   public app: Application
@@ -24,6 +25,7 @@ class App {
 
   private middlewaresInitialize() {
     this.app.use(express.json())
+    this.app.use(cors())
     this.app.use(express.urlencoded({ extended: true }))
   }
 
