@@ -28,7 +28,7 @@ class App {
   }
 
   listen() {
-    this.app.listen(3333, () => {
+    this.app.listen(process.env.PORT || 3333, () => {
       console.log('Server running on port 3333')
     })
   }

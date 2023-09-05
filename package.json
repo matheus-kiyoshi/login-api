@@ -4,6 +4,8 @@
   "description": "backend login api",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
+    "start": "node dist/main.js",
     "dev": "tsx watch ./src/main.ts",
     "test": "jest"
   },
