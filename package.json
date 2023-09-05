@@ -4,13 +4,11 @@
   "description": "backend login api",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
-    "start": "node dist/main.js",
     "dev": "tsx watch ./src/main.ts",
     "test": "jest"
   },
   "engines": {
-    "node": "20"
+    "node": "18.x"
   },
   "author": "Matheus Kiyoshi",
   "license": "ISC",
