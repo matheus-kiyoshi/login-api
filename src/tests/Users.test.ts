@@ -34,6 +34,18 @@ describe('user test', () => {
 
     expect(response.status).toBe(200)
   })
+  it('/POST delete user', async () => {
+    // need jwt
+    const response = await request(express).delete('/users/1').send()
+    if (response.error) {
+      console.log('ERRO: ', response.error)
+    }
+
+    expect(response.status).toBe(200)
+    expect(response.body).toEqual({
+      message: 'User deleted'
+    })
+  })
   it('/POST check user exists', async () => {
     const response = await request(express).post('/users/register').send({
       firstName: 'Matheus',

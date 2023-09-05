@@ -40,5 +40,5 @@ crud user
    - auth user
 
  - user
-   - Update informations
-   - delete user
+   - Update informations X
+   - delete user X

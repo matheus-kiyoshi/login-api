@@ -77,6 +77,21 @@ class UserUseCases {
     }
   }
 
+  async delete(id: string) {
+    if (!id) {
+      throw new HttpException('Id is required', 400)
+    }
+
+    // verify if user exists
+    const user = await this.userRepository.findById(id)
+    if (!user) {
+      throw new HttpException('User not found', 404)
+    }
+
+    await this.userRepository.delete(id)
+    return { msg: 'User deleted' }
+  }
+
   async updatePassword(
     id: string,
     email: string,

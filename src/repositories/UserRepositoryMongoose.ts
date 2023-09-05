@@ -24,14 +24,18 @@ const userSchema = new mongoose.Schema({
 const UserModel = mongoose.model('User', userSchema)
 
 class UserRepositoryMongoose implements UserRepository {
-  // TODO: change the any type
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  async create(user: User): Promise<any> {
+  async create(user: User): Promise<unknown> {
     const userModel = new UserModel(user)
 
     await userModel.save()
 
     return userModel
+  }
+
+  async delete(id: string): Promise<unknown> {
+    const userModel = await UserModel.findByIdAndDelete(id)
+
+    return userModel ? userModel.toObject() : undefined
   }
 
   async updatePassword(user: UserWithID): Promise<UserWithID | undefined> {
