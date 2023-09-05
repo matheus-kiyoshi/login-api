@@ -41,6 +41,23 @@ class UserController {
     }
   }
 
+  async updatePassword(req: Request, res: Response, next: NextFunction) {
+    const { id } = req.params
+    const { email, currentPassword, newPassword } = req.body
+
+    try {
+      const user = await this.userUseCase.updatePassword(
+        id,
+        email,
+        currentPassword,
+        newPassword
+      )
+      return res.status(200).json(user)
+    } catch (error) {
+      next(error)
+    }
+  }
+
   async findByEmail(req: Request, res: Response, next: NextFunction) {
     const { email } = req.params
 

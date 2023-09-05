@@ -34,6 +34,16 @@ class UserRepositoryMongoose implements UserRepository {
     return userModel
   }
 
+  async updatePassword(user: UserWithID): Promise<UserWithID | undefined> {
+    const userModel = await UserModel.findByIdAndUpdate(
+      user._id,
+      { password: user.password },
+      { new: true }
+    )
+
+    return userModel ? userModel.toObject() : undefined
+  }
+
   async findById(id: string): Promise<UserWithID | undefined> {
     const userModel = await UserModel.findById(id).select('-password').exec()
 

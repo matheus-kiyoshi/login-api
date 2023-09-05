@@ -16,7 +16,7 @@ class UserRoutes {
   }
 
   initRoutes() {
-    // default route = http://localhost:3333/auth
+    // default route = http://localhost:3333/users
     this.router.post(
       '/register',
       this.userController.create.bind(this.userController)
@@ -29,6 +29,11 @@ class UserRoutes {
       '/:id',
       checkToken,
       this.userController.findById.bind(this.userController)
+    )
+    this.router.patch(
+      '/:id',
+      checkToken,
+      this.userController.updatePassword.bind(this.userController)
     )
     this.router.get(
       '/:email',

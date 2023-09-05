@@ -23,7 +23,7 @@ describe('user test', () => {
     expect(response.status).toBe(201)
     expect(response.body).toEqual({ message: 'User created' })
   })
-  it.only('/POST login user', async () => {
+  it('/POST login user', async () => {
     const response = await request(express).post('/users/login').send({
       email: 'matheus@teste.com',
       password: '123456'
@@ -31,6 +31,8 @@ describe('user test', () => {
     if (response.error) {
       console.log('ERRO: ', response.error)
     }
+
+    expect(response.status).toBe(200)
   })
   it('/POST check user exists', async () => {
     const response = await request(express).post('/users/register').send({
@@ -66,12 +68,21 @@ describe('user test', () => {
       message: 'Password must be at least 8 characters'
     })
   })
-  it('/GET/:email user email', async () => {
-    const response = await request(express).get('/users/matheus@teste.com')
-    if (response.error) {
-      console.log('ERRO: ', response.error)
-    }
+  it('/GET get user by id', async () => {
+    const token =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Zjc3MjMwNGQwZDE2NjE3YjA2OWY5NCIsImlhdCI6MTY5MzkzODY1NywiZXhwIjoxNjk0MDI1MDU3fQ.dTLuYMzbHWsuaeSGMsflByBnTJGeyVNPMVmKHtiX_as'
+
+    const response = await request(express)
+      .get('/users/64f772304d0d16617b069f94')
+      .set('Authorization', `Bearer ${token}`)
 
     expect(response.status).toBe(200)
+    expect(response.body).toEqual({
+      _id: '64f772304d0d16617b069f94',
+      firstName: 'Cristiano',
+      lastName: 'Ronaldo',
+      email: 'cerrote@gmail.com',
+      __v: 0
+    })
   })
 })

@@ -77,6 +77,48 @@ class UserUseCases {
     }
   }
 
+  async updatePassword(
+    id: string,
+    email: string,
+    currentPassword: string,
+    newPassword: string
+  ) {
+    if (!id) {
+      throw new HttpException('Id is required', 400)
+    }
+    if (!email) {
+      throw new HttpException('Email is required', 400)
+    }
+    if (!currentPassword) {
+      throw new HttpException('Password is required', 400)
+    }
+    if (!newPassword) {
+      throw new HttpException('New password is required', 400)
+    }
+    if (newPassword.length < 8) {
+      throw new HttpException('New password must be at least 8 characters', 400)
+    }
+    let user = await this.userRepository.findByEmail(email)
+    if (!user) {
+      throw new HttpException('User not found', 404)
+    }
+
+    // verify password
+    const passwordMatch = await bcrypt.compare(currentPassword, user.password)
+    if (!passwordMatch) {
+      throw new HttpException('Invalid password', 422)
+    }
+
+    const salt = await bcrypt.genSalt(10)
+    newPassword = await bcrypt.hash(newPassword, salt)
+
+    user = { ...user, password: newPassword }
+    console.log(user)
+
+    const result = await this.userRepository.updatePassword(user)
+    return result
+  }
+
   async findById(id: string) {
     if (!id) {
       throw new HttpException('Id is required', 400)
