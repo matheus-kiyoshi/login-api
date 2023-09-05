@@ -77,15 +77,27 @@ class UserUseCases {
     }
   }
 
-  async delete(id: string) {
+  async delete(id: string, email: string, password: string) {
     if (!id) {
       throw new HttpException('Id is required', 400)
     }
+    if (!email) {
+      throw new HttpException('Email is required', 400)
+    }
+    if (!password) {
+      throw new HttpException('Password is required', 400)
+    }
 
     // verify if user exists
-    const user = await this.userRepository.findById(id)
+    const user = await this.userRepository.findByEmail(email)
     if (!user) {
       throw new HttpException('User not found', 404)
+    }
+
+    // verify password
+    const passwordMatch = await bcrypt.compare(password, user.password)
+    if (!passwordMatch) {
+      throw new HttpException('Invalid password', 422)
     }
 
     await this.userRepository.delete(id)

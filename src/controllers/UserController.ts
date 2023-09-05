@@ -32,9 +32,10 @@ class UserController {
 
   async delete(req: Request, res: Response, next: NextFunction) {
     const { id } = req.params
+    const { email, password } = req.body
 
     try {
-      await this.userUseCase.delete(id)
+      await this.userUseCase.delete(id, email, password)
       return res.status(200).json({ message: 'User deleted' })
     } catch (error) {
       next(error)

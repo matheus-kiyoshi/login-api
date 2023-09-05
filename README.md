@@ -1,5 +1,4 @@
-ready to deploy
-
+deployed
  # todo:
 
 server running X
@@ -44,3 +43,40 @@ crud user
  - user
    - Update informations X
    - delete user X
+
+# Routes
+
+ ## default route
+  - /users
+
+  ### get
+
+    - /:id
+     - need jwt
+     - return user data except password
+    - /:email
+     - return user data
+     - private route
+
+  ### post 
+  
+    - /register
+     - need the firstName, lastName, email and password properties
+     - create user in database
+    - /login
+     - need email and password
+     - returns user ID and jwt token
+    
+  ### patch
+
+    - /:id
+     - need jwt
+     - edit user password in database
+     - need the email, current password and the new password
+
+  ### delete
+    
+    - /:id
+      - need jwt
+      - delete user of database
+      - need user ID and password
