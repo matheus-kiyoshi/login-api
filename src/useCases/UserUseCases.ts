@@ -71,7 +71,7 @@ class UserUseCases {
         }
       )
 
-      return { msg: 'Login successful', token: token }
+      return { msg: 'Login successful', token: token, id: user._id }
     } catch (error) {
       throw new HttpException('Internal server error', 500)
     }
